@@ -1,0 +1,43 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs navbar-right">
+                {% for table in tables %}
+                    <li class="{{ table == currentTable ? 'active' : '' }}"><a href="{{ listUrl }}/{{ table }}">{{ table }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                {% for field in fields %}
+                    <th>{{ field }}</th>
+                {% endfor %}
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    {% for field in fields %}
+                        <td>{{ attribute(item, field) }} </td>
+                    {% endfor %}
+                    <td>
+                        <a href="{{ editUrl }}/{{ currentTable }}/{{ item.id }}" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span> </a>
+                        <a href="{{ rmUrl }}/{{ currentTable }}/{{ item.id }}" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> </a>
+
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ addUrl }}/{{ currentTable }}" class="btn btn-primary"><span class="glyphicon glyphicon-file"></span> Add {{ currentTable }}</a>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <form class="form-horizontal" role="form" method="post" action="/admin/edit/dir/{{ currentTable }}" enctype="multipart/form-data">
+                {% if id is defined %}
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Id</label>
+
+                        <div class="col-md-8">
+                            <p class="form-control-static">{{ id }}</p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" value="{{ id }}"/>
+                {% endif %}
+
+                {% for field in fields %}
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">{{ field.name }}</label>
+                        <div class="col-md-8">
+                            {% if not field.dict %}
+                                <input type="text" class="form-control" id="{{ field.name }}" name="{{ field.name }}" placeholder="{{ field.name }}" value="{{ attribute(item, field.name) }}">
+                            {% else %}
+                                <select class="form-control" name="{{ field.name }}" id="{{ field.name }}" >
+                                    {% for option in attribute(item, field.name) %}
+                                        <option value="{{ option.id }}" {% if option.active %} selected {% endif %}>
+                                            {{ option.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

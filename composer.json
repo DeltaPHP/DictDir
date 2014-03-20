@@ -1,0 +1,21 @@
+{
+    "name": "deltaphp/dictdir",
+    "description": "module for work with simple dict-type data",
+    "license": "GPL-3+",
+    "authors": [
+        {
+            "name": "orbisnull",
+            "email": "zen4dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "DictDir": "src/"
+        }
+    },
+    "require": {
+        "deltaphp/deltacore": "dev-master",
+        "deltaphp/deltadb": "dev-postdb"
+    }
+}
