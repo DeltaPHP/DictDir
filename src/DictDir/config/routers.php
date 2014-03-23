@@ -1,9 +1,9 @@
 <?php
 
 return [
-    ['/dictdir', ['directory', 'index']],
-    ['/dictdir/list', ['directory', 'list']],
-    ['/dictdir/add', ['directory', 'add']],
-    ['/dictdir/edit', ['directory', 'edit']],
-    ['/dictdir/rm', ['directory', 'rm']],
+    ['/admin/dictdir', ['directory', 'index']],
+    ['/admin/dictdir/list', ['directory', 'list']],
+    ['/admin/dictdir/add', ['directory', 'add']],
+    ['/admin/dictdir/edit', ['directory', 'edit']],
+    ['/admin/dictdir/rm', ['directory', 'rm']],
 ];

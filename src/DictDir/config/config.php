@@ -3,10 +3,10 @@
 return [
     "DictDir" => [
         "urls" => [
-            "listUrl" => "/dictdir/list",
-            "addUrl"  => "/dictdir/add",
-            "editUrl" => "/dictdir/edit",
-            "rmUrl"   => "/dictdir/rm"
+            "listUrl" => "/admin/dictdir/list",
+            "addUrl"  => "/admin/dictdir/add",
+            "editUrl" => "/admin/dictdir/edit",
+            "rmUrl"   => "/admin/dictdir/rm"
         ]
     ]
 ];

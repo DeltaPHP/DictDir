@@ -5,45 +5,15 @@
 
 namespace DictDir\Model;
 
+use DeltaDb\VariableEntity;
 
-use DeltaDb\AbstractEntity;
-
-class UniDirectoryItem extends AbstractEntity
+class UniDirectoryItem extends VariableEntity
 {
-    protected $id;
-    protected $name;
-
     /**
      * @param mixed $id
      */
     public function setId($id)
     {
-        $this->id = (integer) $id;
+        $this->setField("id", (integer)$id);
     }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-
 } 

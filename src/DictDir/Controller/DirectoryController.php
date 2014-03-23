@@ -26,7 +26,7 @@ class DirectoryController extends AbstractController
 
     public function getCurrentTable($default = null)
     {
-        return $this->getRequest()->getUriPartByNum(3, $default);
+        return $this->getRequest()->getUriPartByNum(4, $default);
     }
 
     public function getListUrl()

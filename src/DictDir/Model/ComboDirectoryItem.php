@@ -6,10 +6,7 @@
 namespace DictDir\Model;
 
 
-use DeltaDb\EntityInterface;
-use DeltaDb\VariableEntity;
-
-class ComboDirectoryItem extends VariableEntity implements EntityInterface
+class ComboDirectoryItem extends UniDirectoryItem
 {
     /**
      * @var ComboDirectoryManager

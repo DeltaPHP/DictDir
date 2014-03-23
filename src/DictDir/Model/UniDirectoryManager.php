@@ -55,4 +55,16 @@ class UniDirectoryManager extends Repository
     {
         $this->metaInfo[$this->table]["fields"] = $fields;
     }
+
+    public function create(array $data = null, $entityClass = null)
+    {
+        /** @var ComboDirectoryItem $entity */
+        $entity = parent::create(null, $entityClass);
+        $table = $this->getTableName($entityClass);
+        $entity->setFieldList($this->getFieldsList($table));
+        if (!is_null($data)) {
+            $this->load($entity, $data);
+        }
+        return $entity;
+    }
 }
