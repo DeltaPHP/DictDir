@@ -24,6 +24,12 @@ class DirectoryController extends AbstractController
         return $df;
     }
 
+    public function init()
+    {
+        $urls = $this->getConfig([$this->getModuleName(), "urls"]);
+        $this->getView()->assignArray($urls->toArray());
+    }
+
     public function getCurrentTable($default = null)
     {
         return $this->getRequest()->getUriPartByNum(4, $default);
@@ -69,8 +75,6 @@ class DirectoryController extends AbstractController
             $showItems[] = $showItem;
         }
         $this->getView()->assign("items", $showItems);
-        $urls = $this->getConfig([$this->getModuleName(), "urls"]);
-        $this->getView()->assignArray($urls->toArray());
     }
 
     public function getDictFields(UniDirectoryManager $manager)
@@ -168,7 +172,6 @@ class DirectoryController extends AbstractController
     public function editAction()
     {
         $request = $this->getRequest();
-
         $table = $this->getCurrentTable();
         if (is_null($table)) {
             throw new \Exception("Dict table not defined");
@@ -177,28 +180,32 @@ class DirectoryController extends AbstractController
         $this->getView()->assign("pageTitle", $table);
         $manager = $this->getDirFactory()->getManager($table);
 
-        if ($request->isGet()) {
-            $id = $request->getUriPartByNum(5);
-            $this->getView()->assign("id", $id);
-            $item = $manager->findById($id);
-            if (!$item) {
-                throw new \Exception("Item from $table with id #$id not found");
-            }
-            $fields = $this->getFields($manager);
-            unset($fields["id"]);
-            $this->getView()->assign("fields", $fields);
-            $this->getView()->assign("item", $this->itemToArray($manager, $item));
-            return;
-        } else {
-            $id = $request->getParam("id");
-            $item = $id ? $manager->findById($id) : $manager->create();
-            $postData = $request->getParams();
-            unset($postData["id"]);
-            $manager->load($item, $postData);
-            $manager->save($item);
-            $url = $this->getListUrl();
-            $this->getResponse()->redirect("{$url}/$table");
+        $id = $request->getUriPartByNum(5);
+        $this->getView()->assign("id", $id);
+        $item = $manager->findById($id);
+        if (!$item) {
+            throw new \Exception("Item from $table with id #$id not found");
         }
+        $fields = $this->getFields($manager);
+        unset($fields["id"]);
+        $this->getView()->assign("fields", $fields);
+        $this->getView()->assign("item", $this->itemToArray($manager, $item));
+        return;
+    }
+
+    public function saveAction()
+    {
+        $request = $this->getRequest();
+        $table = $this->getCurrentTable();
+        $id = $request->getParam("id");
+        $manager = $this->getDirFactory()->getManager($table);
+        $item = $id ? $manager->findById($id) : $manager->create();
+        $postData = $request->getParams();
+        unset($postData["id"]);
+        $manager->load($item, $postData);
+        $manager->save($item);
+        $url = $this->getListUrl();
+        $this->getResponse()->redirect("{$url}/$table");
     }
 
     public function rmAction()
