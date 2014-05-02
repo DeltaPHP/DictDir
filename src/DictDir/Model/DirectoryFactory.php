@@ -8,6 +8,11 @@ namespace DictDir\Model;
 
 use DeltaUtils\Parts\InnerCache;
 
+/**
+ * Class DirectoryFactory
+ * Создает для заданных таблиц объекты менеджеров на основе Uni|Combo DirectoryManager
+ * @package DictDir\Model
+ */
 class DirectoryFactory
 {
     use InnerCache;
