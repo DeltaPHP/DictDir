@@ -7,6 +7,7 @@ return [
             "addUrl"  => "/admin/dictdir/add",
             "editUrl" => "/admin/dictdir/edit",
             "saveUrl"   => "/admin/dictdir/save",
+            "rmUrl" => "/admin/dictdir/rm",
         ]
     ]
 ];
