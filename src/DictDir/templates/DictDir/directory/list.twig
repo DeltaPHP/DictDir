@@ -25,7 +25,13 @@
             {% for item in items %}
                 <tr>
                     {% for field in fields %}
-                        <td>{{ attribute(item, field) }} </td>
+                        <td>
+                            {% if attribute(item, field).name is not defined %}
+                                {{ attribute(item, field) }}
+                            {% else %}
+                                {{ attribute(item, field).name }}
+                            {% endif %}
+                        </td>
                     {% endfor %}
                     <td>
                         <a href="{{ editUrl }}/{{ currentTable }}/{{ item.id }}" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span> </a>

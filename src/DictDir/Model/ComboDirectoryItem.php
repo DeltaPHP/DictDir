@@ -28,12 +28,25 @@ class ComboDirectoryItem extends UniDirectoryItem
         return $this->getComboManager()->getFieldVariants($field);
     }
 
+    /**
+     * @param $field
+     * @return null
+     * @deprecated
+     */
     public function getFieldTitle($field)
     {
         $fieldValue = $this->getComboManager()->getField($this, $field);
         return $this->getComboManager()->getFieldValue($field, $fieldValue);
     }
 
+    public function getField($field)
+    {
+        $value = parent::getField($field);
+        if ($this->getComboManager()->isDictField($field)) {
+            $value = $this->getComboManager()->getDictField($field, $value);
+        }
+        return $value;
+    }
 
 
 } 

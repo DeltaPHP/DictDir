@@ -63,18 +63,7 @@ class DirectoryController extends AbstractController
         $items = $manager->find();
         $fields = $manager->getFieldsList($manager->getTableName());
         $this->getView()->assign("fields", $fields);
-        $dictFields = $manager instanceof ComboDirectoryManager ? array_flip($manager->getDictFieldsList()) : [];
-
-        $showItems = [];
-        foreach ($items as $item) {
-            $showItem = [];
-            foreach ($fields as $field) {
-                $fieldValue = $manager->getField($item, $field);
-                $showItem[$field] = !isset($dictFields[$field]) ? $fieldValue : $manager->getFieldValue($field, $fieldValue);
-            }
-            $showItems[] = $showItem;
-        }
-        $this->getView()->assign("items", $showItems);
+        $this->getView()->assign("items", $items);
     }
 
     public function getDictFields(UniDirectoryManager $manager)

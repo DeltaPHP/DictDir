@@ -52,6 +52,12 @@ class ComboDirectoryManager extends UniDirectoryManager
         return $entity;
     }
 
+    /**
+     * @param $field
+     * @param $value
+     * @return null
+     * @deprecated
+     */
     public function getFieldValue($field, $value)
     {
         $dm = $this->getDictManager($field);
@@ -60,6 +66,13 @@ class ComboDirectoryManager extends UniDirectoryManager
             return $fieldInfo->getName();
         }
         return $fieldInfo;
+    }
+
+    public function getDictField($field, $value)
+    {
+        $dm = $this->getDictManager($field);
+        $item = $dm->findById($value);
+        return $item;
     }
 
     /**
@@ -76,6 +89,11 @@ class ComboDirectoryManager extends UniDirectoryManager
     public function getDictFieldsList()
     {
         return array_keys($this->dictManagers);
+    }
+
+    public function isDictField($field)
+    {
+        return isset($this->dictManagers[$field]);
     }
 
 
