@@ -6,6 +6,7 @@
 namespace DictDir\Model;
 
 
+use DeltaDb\EntityInterface;
 use DeltaDb\Repository;
 
 class ComboDirectoryManager extends UniDirectoryManager
@@ -96,6 +97,15 @@ class ComboDirectoryManager extends UniDirectoryManager
         return isset($this->dictManagers[$field]);
     }
 
+    public function reserve(EntityInterface $entity)
+    {
+        $data = parent::reserve($entity);
+        foreach($data["fields"] as $name => $value)
+            if ($value instanceof EntityInterface) {
+                $data["fields"][$name] = $value->getId();
+            }
+        return $data;
+    }
 
 
 } 
