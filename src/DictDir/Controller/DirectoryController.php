@@ -101,6 +101,9 @@ class DirectoryController extends AbstractController
                 $optionVars = $manager->getFieldVariants($fieldName);
                 foreach ($optionVars as $oVar) {
                     $oId = $oVar->getId();
+                    if ($fieldValue instanceof EntityInterface) {
+                        $fieldValue = $fieldValue->getId();
+                    }
                     $options[] = [
                         "id"     => $oId,
                         "name"   => $oVar->getName(),
