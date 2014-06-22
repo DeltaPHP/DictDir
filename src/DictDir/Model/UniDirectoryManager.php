@@ -24,7 +24,7 @@ class UniDirectoryManager extends Repository
     protected $table = "table";
     protected $entityClass = "\\DictDir\\Model\\UniDirectoryItem";
 
-    public function setTable($table)
+    public function setTable($table, array $tableData = [], $merge = true)
     {
         $meta = $this->metaInfo;
         if (!isset($meta[$this->table])) {
