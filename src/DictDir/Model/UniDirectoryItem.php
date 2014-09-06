@@ -16,4 +16,11 @@ class UniDirectoryItem extends VariableEntity
     {
         $this->setField("id", (integer)$id);
     }
+
+    function __toString()
+    {
+        return $this->name;
+    }
+
+
 } 
