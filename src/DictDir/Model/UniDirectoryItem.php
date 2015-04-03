@@ -5,6 +5,7 @@
 
 namespace DictDir\Model;
 
+use DeltaCore\Prototype\MagicMethodInterface;
 use DeltaDb\VariableEntity;
 
 class UniDirectoryItem extends VariableEntity

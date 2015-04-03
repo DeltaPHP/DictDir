@@ -24,6 +24,10 @@ trait DicDirFactory
         return $this->getApplication()["directoryFactory"];
     }
 
+    /**
+     * @param $table
+     * @return \DeltaDb\Repository|\DictDir\Model\ComboDirectoryManager|\DictDir\Model\UniDirectoryManager|null
+     */
     public function getDirectoryManager($table)
     {
         return $this->getDirectoryFactory()->getManager($table);

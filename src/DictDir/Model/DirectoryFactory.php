@@ -6,6 +6,7 @@
 namespace DictDir\Model;
 
 
+use DeltaDb\Repository;
 use DeltaUtils\Parts\InnerCache;
 
 /**
@@ -53,6 +54,11 @@ class DirectoryFactory
         return $this->tables;
     }
 
+    /**
+     * @param $table
+     * @return ComboDirectoryManager|UniDirectoryManager|Repository|null
+     * @throws \Exception
+     */
     public function getManager($table)
     {
         if (!isset($this->tables[$table])) {
@@ -85,6 +91,11 @@ class DirectoryFactory
         }
         $this->setInnerCache($cacheId, $manager);
         return $manager;
+    }
+
+    public function getDirectoryNames()
+    {
+        return array_keys($this->tables);
     }
 
 } 
