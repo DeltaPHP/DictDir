@@ -77,7 +77,8 @@ class DirectoryFactory
             $manager = new ComboDirectoryManager();
             $manager->setTable($table);
             foreach ($dicts as $field => $table) {
-                $manager->addDictManager($field, $this->getManager($table));
+                $childManager = is_callable($table) ? call_user_func($table) : $this->getManager($table);
+                $manager->addDictManager($field, $childManager);
             }
         } else {
             $manager = new UniDirectoryManager();
