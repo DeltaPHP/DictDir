@@ -61,7 +61,7 @@ class DirectoryController extends AbstractController
         $this->getView()->assign("currentTable", $table);
         $manager = $this->getDirFactory()->getManager($table);
         $items = $manager->find();
-        $fields = $manager->getFieldsList($manager->getTableName());
+        $fields = $manager->getFieldsList($manager->getTable());
         $this->getView()->assign("fields", $fields);
         $this->getView()->assign("items", $items);
     }
@@ -73,7 +73,7 @@ class DirectoryController extends AbstractController
 
     public function getFields(UniDirectoryManager $manager)
     {
-        $fields = $manager->getFieldsList($manager->getTableName());
+        $fields = $manager->getFieldsList($manager->getTable());
         $dictFields = array_flip($this->getDictFields($manager));
 
         $newFields = [];

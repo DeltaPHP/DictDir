@@ -12,13 +12,10 @@ use DeltaDb\Repository;
 class ComboDirectoryManager extends UniDirectoryManager
 {
     protected $metaInfo = [
-        'table' => [
-            'class'  => '\\DictDir\\Model\\ComboDirectoryItem',
-            'id'     => 'id',
-            'fields' => [
-                'id',
-                'name',
-            ]
+        'class' => '\\DictDir\\Model\\ComboDirectoryItem',
+        'fields' => [
+            'id',
+            'name',
         ]
     ];
 
@@ -43,10 +40,9 @@ class ComboDirectoryManager extends UniDirectoryManager
     public function create(array $data = null, $entityClass = null)
     {
         /** @var ComboDirectoryItem $entity */
-        $entity = parent::create(null, $entityClass);
+        $entity = parent::create();
         $entity->setComboManager($this);
-        $table = $this->getTableName($entityClass);
-        $entity->setFieldList($this->getFieldsList($table));
+        $entity->setFieldList($this->getFieldsList());
         if (!is_null($data)) {
             $this->load($entity, $data);
         }
@@ -106,6 +102,4 @@ class ComboDirectoryManager extends UniDirectoryManager
             }
         return $data;
     }
-
-
-} 
+}
