@@ -1,21 +1,22 @@
 {
-    "name": "deltaphp/dictdir",
-    "description": "module for work with simple dict-type data",
-    "license": "GPL-3+",
-    "authors": [
-        {
-            "name": "orbisnull",
-            "email": "zen4dev@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "autoload": {
-        "psr-0": {
-            "DictDir": "src/"
-        }
-    },
-    "require": {
-        "deltaphp/deltacore": "~1.0",
-        "deltaphp/deltadb": "~1.0"
+  "name": "deltaphp/dictdir",
+  "description": "module for work with simple dict-type data",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "orbisnull",
+      "email": "zen4dev@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-0": {
+      "DictDir": "src/"
+    }
+  },
+  "require": {
+    "deltaphp/deltacore": "^2.0",
+    "deltaphp/deltadb": "^1.2.0"
+  }
 }
