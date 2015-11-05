@@ -22,20 +22,24 @@ class DirectoryFactory
 
     protected $tables = [];
 
-    function __construct($tables)
+    function __construct(array $tables = [])
     {
         foreach ($tables as $key => $value) {
-            if (is_string($key)) {
-                $this->tables[$key] = $value;
+            $this->addTable($key, $value);
+        }
+    }
+
+    public function addTable($table, $value = null)
+    {
+        if (!isset($value)) {
+            $this->tables[$table] = ["id", "name"];
+        } else {
+            if (is_string($table)) {
+                $this->tables[$table] = $value;
             } else {
                 $this->tables[$value] = ["id", "name"];
             }
         }
-    }
-
-    public function addTable($table, $entityClass = null)
-    {
-        $this->tables[$table] = $entityClass;
     }
 
     /**
@@ -91,6 +95,7 @@ class DirectoryFactory
             $manager->setFields($tableMeta["fields"]);
         }
         $this->setInnerCache($cacheId, $manager);
+
         return $manager;
     }
 
