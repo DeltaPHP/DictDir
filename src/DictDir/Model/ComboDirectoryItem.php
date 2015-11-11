@@ -47,6 +47,4 @@ class ComboDirectoryItem extends UniDirectoryItem
         }
         return $value;
     }
-
-
-} 
+}

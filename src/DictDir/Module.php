@@ -9,4 +9,4 @@ namespace DictDir;
 class Module
 {
 
-} 
+}

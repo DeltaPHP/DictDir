@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row">
         <div class="col-md-8">
-            <form class="form-horizontal" role="form" method="post" action="{{ saveUrl }}/{{ table }}{{ currentTable }}" enctype="multipart/form-data">
+            <form class="form-horizontal" role="form" method="post" action="{{ route_url("dictdir_save", {"table" : currentTable}) }}" enctype="multipart/form-data">
                 {% if id is defined %}
                     <div class="form-group">
                         <label class="col-md-2 control-label">Id</label>

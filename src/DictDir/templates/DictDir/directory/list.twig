@@ -5,7 +5,8 @@
         <div class="col-md-12">
             <ul class="nav nav-tabs navbar-right">
                 {% for table in tables %}
-                    <li class="{{ table == currentTable ? 'active' : '' }}"><a href="{{ listUrl }}/{{ table }}">{{ table }}</a></li>
+                    <li class="{{ table == currentTable ? 'active' : '' }}"><a
+                                href="{{ route_url("dictdir_list", {"table" : table}) }}">{{ table }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -34,8 +35,11 @@
                         </td>
                     {% endfor %}
                     <td>
-                        <a href="{{ editUrl }}/{{ currentTable }}/{{ item.id }}" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span> </a>
-                        <a href="{{ rmUrl }}/{{ currentTable }}/{{ item.id }}" class="btn btn-sm btn-danger confirm"><span class="glyphicon glyphicon-remove"></span> </a>
+                        <a href="{{ route_url("dictdir_edit", {"table" : currentTable, "id" : item.id}) }}"
+                           class="btn btn-sm btn-warning"><span
+                                    class="glyphicon glyphicon-edit"></span> </a>
+                        <a href="{{ route_url("dictdir_rm", {"table" : currentTable, "id" : item.id})}}"
+                           class="btn btn-sm btn-danger confirm"><span class="glyphicon glyphicon-remove"></span> </a>
 
 
                     </td>
@@ -43,7 +47,8 @@
             {% endfor %}
             </tbody>
         </table>
-        <a href="{{ addUrl }}/{{ currentTable }}" class="btn btn-primary"><span class="glyphicon glyphicon-file"></span> Add {{ currentTable }}</a>
+        <a href="{{ route_url("dictdir_add", {"table":currentTable}) }}" class="btn btn-primary"><span
+                    class="glyphicon glyphicon-file"></span> Add {{ currentTable }}</a>
     </div>
 
 {% endblock %}

@@ -7,59 +7,30 @@ namespace DictDir\Controller;
 
 
 use DeltaCore\AbstractController;
+use DeltaUtils\ArrayUtils;
 use DictDir\Model\ComboDirectoryManager;
 use DictDir\Model\DirectoryFactory;
+use DictDir\Model\Parts\DicDirFactory;
 use DictDir\Model\UniDirectoryManager;
 use DeltaDb\EntityInterface;
 
 class DirectoryController extends AbstractController
 {
-    /**
-     * @return DirectoryFactory
-     */
-    public function getDirFactory()
-    {
-        $app = $this->getApplication();
-        $df = $app["directoryFactory"];
-        return $df;
-    }
+    use DicDirFactory;
 
-    public function init()
-    {
-        $urls = $this->getConfig([$this->getModuleName(), "urls"]);
-        $this->getView()->assignArray($urls->toArray());
-    }
-
-    public function getCurrentTable($default = null)
-    {
-        return $this->getRequest()->getUriPartByNum(4, $default);
-    }
-
-    public function getListUrl()
-    {
-        return   $this->getConfig([$this->getModuleName(), "urls", "listUrl"]);
-    }
-
-    public function indexAction()
-    {
-        $url = $this->getListUrl();
-        $this->autoRenderOff();
-        $this->getResponse()->redirect("{$url}");
-    }
-
-    public function listAction()
+    public function listAction(array $params = [])
     {
         $this->getView()->assign("pageTitle", "Directory list");
-        $tables = $this->getDirFactory()->getTables();
+        $tables = $this->getDirectoryFactory()->getTables();
         if (empty($tables)) {
            throw new \Exception("Empty tables in DictDir");
         }
         $tables = array_keys($tables);
         $this->getView()->assign("tables", $tables);
 
-        $table = $this->getCurrentTable($tables[0]);
+        $table = ArrayUtils::get($params, "table", $tables[0]);
         $this->getView()->assign("currentTable", $table);
-        $manager = $this->getDirFactory()->getManager($table);
+        $manager = $this->getDirectoryManager($table);
         $items = $manager->find();
         $fields = $manager->getFieldsList($manager->getTable());
         $this->getView()->assign("fields", $fields);
@@ -139,17 +110,17 @@ class DirectoryController extends AbstractController
         return $showItem;
     }
 
-    public function addAction()
+    public function addAction(array $params = [])
     {
         $this->setViewTemplate("edit");
         $request = $this->getRequest();
 
-        $table = $this->getCurrentTable();
+        $table = ArrayUtils::get($params, "table");
         if (is_null($table)) {
             throw new \Exception("Dict table not defined");
         }
         $this->getView()->assign("currentTable", $table);
-        $manager = $this->getDirFactory()->getManager($table);
+        $manager = $this->getDirectoryManager($table);
 
         if ($request->isGet()) {
             $fields = $this->getFields($manager);
@@ -161,18 +132,17 @@ class DirectoryController extends AbstractController
         }
     }
 
-    public function editAction()
+    public function editAction(array $params = [])
     {
-        $request = $this->getRequest();
-        $table = $this->getCurrentTable();
+        $table = ArrayUtils::get($params, "table");
         if (is_null($table)) {
             throw new \Exception("Dict table not defined");
         }
         $this->getView()->assign("currentTable", $table);
         $this->getView()->assign("pageTitle", $table);
-        $manager = $this->getDirFactory()->getManager($table);
+        $manager = $this->getDirectoryManager($table);
 
-        $id = $request->getUriPartByNum(5);
+        $id = ArrayUtils::get($params, "id");
         $this->getView()->assign("id", $id);
         $item = $manager->findById($id);
         if (!$item) {
@@ -185,33 +155,32 @@ class DirectoryController extends AbstractController
         return;
     }
 
-    public function saveAction()
+    public function saveAction(array $params = [])
     {
         $request = $this->getRequest();
-        $table = $this->getCurrentTable();
+        $table = ArrayUtils::get($params, "table");
         $id = $request->getParam("id");
-        $manager = $this->getDirFactory()->getManager($table);
+        $manager = $this->getDirectoryManager($table);
         $item = $id ? $manager->findById($id) : $manager->create();
         $postData = $request->getParams();
         unset($postData["id"]);
         $manager->load($item, $postData);
         $manager->save($item);
-        $url = $this->getListUrl();
-        $this->getResponse()->redirect("{$url}/$table");
+//        $url = $this->getListUrl();
+        $this->getResponse()->redirect($this->getRouteUrl("dictdir_list", ["table" => $table]));
     }
 
-    public function rmAction()
+    public function rmAction(array $params = [])
     {
-        $request = $this->getRequest();
-        $table = $this->getCurrentTable();
+        $table = ArrayUtils::get($params, "table");
         if (is_null($table)) {
             throw new \Exception("Dict table not defined");
         }
         $this->getView()->assign("currentTable", $table);
         $this->getView()->assign("pageTitle", $table);
-        $manager = $this->getDirFactory()->getManager($table);
+        $manager = $this->getDirectoryManager($table);
 
-        $id = $request->getUriPartByNum(5);
+        $id = ArrayUtils::get($params, "id");
         $item = $manager->findById($id);
         if (!$item) {
             throw new \Exception("Item from $table with id #$id not found");
@@ -219,8 +188,7 @@ class DirectoryController extends AbstractController
         $manager->delete($item);
 
         $this->autoRenderOff();
-        $url = $this->getListUrl();
-        $this->getResponse()->redirect("{$url}/$table");
+        $this->getResponse()->redirect($this->getRouteUrl("dictdir_list", ["table" => $table]));
     }
 
-} 
+}

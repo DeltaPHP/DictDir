@@ -22,6 +22,4 @@ class UniDirectoryItem extends VariableEntity
     {
         return $this->name;
     }
-
-
-} 
+}
