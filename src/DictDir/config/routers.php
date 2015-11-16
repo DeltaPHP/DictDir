@@ -8,7 +8,7 @@ return [
                 "type" => \DeltaRouter\RoutePattern::TYPE_REGEXP,
                 "value" => "^/admin/dictdir/list/?(?P<table>\w+)?",
             ],
-            "action" => ['directory', 'list'],
+            "action" => ['admin', 'list'],
         ],
     "dictdir_add" =>
         [
@@ -17,7 +17,7 @@ return [
                 "type" => \DeltaRouter\RoutePattern::TYPE_REGEXP,
                 "value" => "^/admin/dictdir/add/(?P<table>\w+)",
             ],
-            "action" => ['directory', 'add'],
+            "action" => ['admin', 'add'],
         ],
     "dictdir_edit" =>
         [
@@ -26,7 +26,7 @@ return [
                 "type" => \DeltaRouter\RoutePattern::TYPE_REGEXP,
                 "value" => "^/admin/dictdir/edit/(?P<table>\w+)/(?P<id>\w+)",
             ],
-            "action" => ['directory', 'edit'],
+            "action" => ['admin', 'edit'],
         ],
     "dictdir_rm" =>
         [
@@ -35,7 +35,7 @@ return [
                 "type" => \DeltaRouter\RoutePattern::TYPE_REGEXP,
                 "value" => "^/admin/dictdir/rm/(?P<table>\w+)/(?P<id>\w+)",
             ],
-            "action" => ['directory', 'rm'],
+            "action" => ['admin', 'rm'],
         ],
     "dictdir_save" =>
         [
@@ -44,6 +44,6 @@ return [
                 "type" => \DeltaRouter\RoutePattern::TYPE_REGEXP,
                 "value" => "^/admin/dictdir/save/(?P<table>\w+)",
             ],
-            "action" => ['directory', 'save'],
+            "action" => ['admin', 'save'],
         ],
 ];

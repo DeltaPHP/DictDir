@@ -14,9 +14,24 @@ use DictDir\Model\Parts\DicDirFactory;
 use DictDir\Model\UniDirectoryManager;
 use DeltaDb\EntityInterface;
 
-class DirectoryController extends AbstractController
+class AdminController extends AbstractController
 {
     use DicDirFactory;
+
+    public function init()
+    {
+        parent::init();
+        //init all managers
+        $managersList = $this->getConfig(["DictDir", "managers"], [])->toArray();
+        $disabled = array_filter($managersList, function($value, $key) {
+            return !is_integer($key) && empty($value);
+        }, ARRAY_FILTER_USE_BOTH);
+        $managersList = array_diff(array_diff($managersList, $disabled), array_keys($disabled));
+
+        foreach($managersList as $managerItem) {
+            $this->getApplication()[$managerItem];
+        }
+    }
 
     public function listAction(array $params = [])
     {

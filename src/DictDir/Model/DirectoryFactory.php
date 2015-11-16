@@ -6,6 +6,7 @@
 namespace DictDir\Model;
 
 
+use DeltaCore\Parts\Configurable;
 use DeltaDb\Repository;
 use DeltaUtils\Parts\InnerCache;
 
@@ -16,6 +17,7 @@ use DeltaUtils\Parts\InnerCache;
  */
 class DirectoryFactory
 {
+    use Configurable;
     use InnerCache;
 
     protected $managers = [];
@@ -103,5 +105,4 @@ class DirectoryFactory
     {
         return array_keys($this->tables);
     }
-
 }
