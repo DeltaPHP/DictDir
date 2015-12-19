@@ -7,7 +7,6 @@ namespace DictDir\Model;
 
 
 use DeltaDb\EntityInterface;
-use DeltaDb\Repository;
 
 class ComboDirectoryManager extends UniDirectoryManager
 {

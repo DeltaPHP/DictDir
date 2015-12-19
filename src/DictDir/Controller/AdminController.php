@@ -181,7 +181,6 @@ class AdminController extends AbstractController
         unset($postData["id"]);
         $manager->load($item, $postData);
         $manager->save($item);
-//        $url = $this->getListUrl();
         $this->getResponse()->redirect($this->getRouteUrl("dictdir_list", ["table" => $table]));
     }
 

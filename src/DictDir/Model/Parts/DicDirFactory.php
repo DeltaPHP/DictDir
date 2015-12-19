@@ -6,18 +6,15 @@
 namespace DictDir\Model\Parts;
 
 
-use DeltaCore\Application;
-use DictDir\Model\DirectoryFactory;
-
 trait DicDirFactory
 {
     /**
-     * @return Application
+     * @return \DeltaCore\Application
      */
     abstract public function getApplication();
 
     /**
-     * @return DirectoryFactory
+     * @return \DictDir\Model\DirectoryFactory
      */
     public function getDirectoryFactory()
     {
@@ -32,4 +29,4 @@ trait DicDirFactory
     {
         return $this->getDirectoryFactory()->getManager($table);
     }
-} 
+}
