@@ -2,6 +2,6 @@
 
 return [
     "admin" => [
-        ["text" => "Словари", "route" => "dictdir_list"],
+        ["text" => "Справочники", "route" => "dictdir_list"],
     ],
 ];
